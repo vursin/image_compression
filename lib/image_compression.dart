@@ -47,21 +47,19 @@ ImageFile compress(ImageFileConfiguration param) {
       height: image.height,
     );
   } else {
-    final animation = img.decodeAnimation(input.rawBytes);
+    final animation = img.decodeGif(input.rawBytes);
     if (animation != null) {
-      final output = img.encodeGifAnimation(
+      final output = img.encodeGif(
         animation,
         samplingFactor: config.animationGifSamplingFactor,
       );
 
-      if (output != null) {
-        return ImageFile(
-          filePath: '',
-          rawBytes: Uint8List.fromList(output),
-          width: animation.width,
-          height: animation.height,
-        );
-      }
+      return ImageFile(
+        filePath: '',
+        rawBytes: Uint8List.fromList(output),
+        width: animation.width,
+        height: animation.height,
+      );
     }
   }
 
